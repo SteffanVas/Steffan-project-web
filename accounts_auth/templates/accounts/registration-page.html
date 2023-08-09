@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+{% block content %}
+{{ request.user }}
+
+
+
+<form action="{% url 'registration' %}" method="post">
+{#    #you can remove that afterwards#}
+    {% if not request.user.is_authenticated %}
+    {{ form.as_p }}
+    <input type="hidden" value="{{ next }}" name="next" />
+    <div>
+    <button> Register </button>
+    or
+    <a href="{% url 'login' %}"> Login </a>
+        {% else %}
+        <a href="{% url 'logout' %}"> Logout </a>
+    </div>
+    {% endif %}
+
+    {% csrf_token %}
+    </form>
+{% endblock %}
+
+</body>
+</html>
