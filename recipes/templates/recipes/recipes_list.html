@@ -1,3 +1,5 @@
+{% extends 'base/base.html' %}
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,10 +10,22 @@
     <title>Document</title>
 </head>
 <body>
-{{request.user}}
+
 {% block base %}
+        <div class="text-end"><a href="{% url 'home-page' %}">Home</a></div>
+{% if request.user.id %}
+<p>Welcome, your email {{ request.user }} is recognized</p>
+    <p>You can access your account through
+     <a href="{% url 'view-edit' user_id=request.user.id%}">here</a>
+ </p>
+    {% endif %}
+    <p></p>
+    <h3 class="text-center">List of Recipes:</h3>
 {%  for recipe in all_recipes %}
-       <li> <a href="{% url 'view-recipe' recipe.user_id recipe.slug %}"> {{ recipe.recipe_title}}</a></li>
+      <div class="text-center">
+          <a href="{% url 'view-recipe' recipe.user_id recipe.slug %}"> {{ recipe.recipe_title}}</a>
+          <p></p>
+      </div>
     {% endfor %}
 
 {% endblock %}

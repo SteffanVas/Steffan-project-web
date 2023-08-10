@@ -37,7 +37,7 @@ def recipe_index(request):
             recipe.user = request.user
             recipe.user_unique_name = DataContrib.objects.get(contributor_id=request.user.id)
             recipe.save()
-            return redirect('view-recipe')
+            return redirect('view-recipe', recipe.user_id, recipe.slug)
     else:
         form = RecipeForm()
 

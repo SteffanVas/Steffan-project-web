@@ -18,6 +18,7 @@
 
 
 {% block base %}
+    <div class="text-end"><a href="{% url 'home-page' %}">Home</a></div>
     <div><p></p>
         <p></p>
         <p></p></div>
@@ -36,9 +37,9 @@
     <h4>Search Results:</h4>
     <ul>
         {% for item in search_results %}
-            <li>{{ item.recipe_title }}
-           {{ item.user_id }}
-            {{ item.slug }}</li>
+            <li>
+           <a href="{% url 'view-recipe' item.user_id item.slug %}"> {{ item.recipe_title}}</a>
+          <p></p></li>
         {% endfor %}
     </ul>
 {% endif %}

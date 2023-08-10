@@ -11,9 +11,13 @@
 </head>
 <body>
 {% block base %}
- <div class="float-end">
+
+        <div class="text-end"><a href="{% url 'home-page' %}">Home</a></div>
+
+ <div class="float-start">
 {{ request.user }}</div>
-{{ user.pk }}
+{#{{ user.pk }}#}
+    <p></p>
 <form method="Post" class="text-center">
     <div>
     {{ form.as_p }}

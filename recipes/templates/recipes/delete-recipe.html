@@ -1,5 +1,8 @@
-{% block content %}
-<h2>Delete Account</h2>
+  {% extends "base/base.html" %}
+
+
+{% block base %}
+<h2>Delete Recipe</h2>
 <p>Are you sure you want to delete the recipe?</p>
 <form method="post">
     {% csrf_token %}

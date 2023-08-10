@@ -1,3 +1,5 @@
+  {% extends "base/base.html" %}
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,19 +11,71 @@
 </head>
 <body>
 
-{% block content %}
+{% block base %}
+        <div class="text-end"><a href="{% url 'home-page' %}">Home</a></div>
+{% if request.user.id %}
+<p>Welcome, your email {{ request.user }} is recognized</p>
+    <p>You can access your account through
+     <a href="{% url 'view-edit' user_id=request.user.id%}">here</a>
+ </p>
+    {% endif %}
+    <p></p>
+{% include 'accounts/registration-page.html' %}
 
 <div>
-    <p>{{ recipe.recipe_title }}</p>
-    <p>{{ recipe.description}}</p>
+    <p></p>
+    <p></p>
+{#<p>{{ recipe.ingredients }}</p>#}
+
    </div>
 
+<table  class="table" style="width: 50%; background-color: #0d6efd;margin: 0 auto;">
+            <thead>
+                <tr>
+                    <th class="text-center">{{ recipe.recipe_title }}</th>
 
+                </tr>
+              </thead>
+              <tbody>
+              <tr>
+                    <td class="text-center">Ingredients</td>
+              </tr>
+              <tr>
+                    <td class="text-center">{{ recipe.ingredients }}</td>
+              </tr>
+              <tr>
+                  <td class="text-center">Cooking time</td>
 
+              </tr>
 
- <a href="{% url 'edit-recipe' recipe.user_id recipe.slug %}">edit</a>
-     <a href="{% url 'delete-recipe' recipe.user_id recipe.slug %}">Delete</a>
+              <tr>
+                    <td class="text-center">{{ recipe.cooking_time }}</td>
+              </tr>
+              <tr>
+                  <td class="text-center">Servings</td>
 
+              </tr>
+
+              <tr>
+                    <td class="text-center">{{ recipe.servings}}</td>
+              </tr>
+
+               <tr>
+                  <td class="text-center">Description and Cooking Instructions </td>
+
+              </tr>
+
+              <tr>
+                    <td>{{ recipe.description}}</td>
+              </tr>
+
+              </tbody>
+            </table>
+{% if request.user.id == recipe.user_id %}
+<p></p>
+ <p class="text-center"><a href="{% url 'edit-recipe' recipe.user_id recipe.slug %}">Edit</a></p>
+    <p class="text-center"> <a href="{% url 'delete-recipe' recipe.user_id recipe.slug %}">Delete</a></p>
+{% endif %}
 {% endblock %}
 </body>
 </html>

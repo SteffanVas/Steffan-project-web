@@ -1,24 +1,42 @@
+{% extends 'base/base.html' %}
+
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport"#}
+{#          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">#}
+{#    <meta http-equiv="X-UA-Compatible" content="ie=edge">#}
+{#    <title>Document</title>#}
 </head>
 <body>
-{% block content %}
+{% block base %}
+        <div class="text-end"><a href="{% url 'home-page' %}">Home</a></div>
+{% if request.user.id %}
+<p>Welcome, your email {{ request.user }} is recognized</p>
+    <p>You can access your account through
+     <a href="{% url 'view-edit' user_id=request.user.id%}">here</a>
+ </p>
+    {% endif %}
+    <p></p>
+{% include 'accounts/registration-page.html' %}
+{#   <p class="center-text"> {{ request.user.id }}</p>#}
+    <p></p>
 
-    {{ request.user.id }}
+    <h3 class="text-center"> Please fill in the recipe </h3>
 
-<div> <form action="{% url 'recipes' %}" method="post">
-    {{ form.as_p }}
-    <button> Submit </button>
+{# <form action="{% url 'recipes' %}"  method="post">#}
+{#    {{ form }}#}
+{#      <button type="button" > Submit </button>#}
+{#     {% csrf_token %}#}
+{##}
+{#    </form>#}
+
+<div> <form method="post">
+    <table style="margin: 0 auto"> <tbody> <tr>{{ form }}</tr></tbody></table>
+   <div class="text-center"> <button > Submit </button></div>
   {% csrf_token %}
     </form> </div>
-
-
 
 
 {% endblock %}
