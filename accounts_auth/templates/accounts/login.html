@@ -1,3 +1,5 @@
+  {% extends "base/base.html" %}
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,8 +11,10 @@
 </head>
 <body>
 
-{% block content %}
-<form action="{% url 'login' %}" method="post">
+{% block base %}
+
+
+    <form action="{% url 'login' %}" method="post">
     {{ form.as_p }}
 
     <div>

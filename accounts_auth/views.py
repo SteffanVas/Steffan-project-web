@@ -49,7 +49,7 @@ class RegisterUserForm(auth_forms.UserCreationForm):
 class RegisterUserView(views.CreateView):
     template_name = 'accounts/registration-page.html'
     form_class = RegisterUserForm
-    success_url = reverse_lazy('registration')
+    success_url = reverse_lazy('home-page')
 
     # def form_valid(self, form):
     #     result = super().form_valid(form)

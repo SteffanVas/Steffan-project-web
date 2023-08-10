@@ -1,3 +1,5 @@
+  {% extends "base/base.html" %}
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,23 +11,64 @@
 </head>
 <body>
 
-This is a test
+{% block base %}
+        <div class="text-end"><a href="{% url 'home-page' %}">Home</a></div>
 
-{{ request.user }}
-This is {{ object_list.pk }}
+{#This is a test#}
+{##}
+{#{{ request.user }}#}
+{#This is {{ object_list.pk }}#}
+{##}
+{#{{ verification.id }}#}
+{##}
+{#{{ verification.email }}#}
+{##}
+{#{{ other_data.first_name }}#}
+{##}
+{#{{ other_data.unique_username }}#}
 
-{{ verification.id }}
+    <h3 class="text-center"> Your Profile Page </h3>
 
-{{ verification.email }}
+    <p class="text-center"><a href="{% url 'edit-email' pk=request.user.id %}">Change my email {{ request.user }} </a></p>
 
-{{ other_data.first_name }}
+    <table  class="table" style="width: 50%; margin: 0 auto;">
 
-{{ other_data.unique_username }}
+              <tbody>
+              <tr>
+                    <td class="text-center fw-bold">First Name </td>
+              </tr>
+              <tr>
+                    <td class="text-center">{{ other_data.first_name }}</td>
+              </tr>
+              <tr>
+                  <td class="text-center fw-bold">Second Name</td>
 
-<a href="{% url 'list-of-my-recipes' user_id=request.user.id %}">List of my recipes</a>
+              </tr>
 
- <a href="{% url 'edit-profile-page' pk=request.user.id %}">edit</a>
-<a href="{% url 'delete-account' pk=request.user.id %}">Delete</a>
+              <tr>
+                    <td class="text-center">{{ other_data.second_name }}</td>
+              </tr>
+              <tr>
+                  <td class="text-center fw-bold">Unique username</td>
+
+              </tr>
+
+              <tr>
+                  <td class="text-center">{{ other_data.unique_username}}</td>
+
+              </tr>
+
+              </tbody>
+            </table>
+
+
+    <p class="text-center"> <a href="{% url 'edit-profile-page' pk=request.user.id %}">Edit</a> </p>
+   <p></p>
+    <p class="text-center"><a href="{% url 'delete-account' pk=request.user.id %}">Delete Account</a></p>
+    <p></p>
+    <p class="text-center"><a href="{% url 'list-of-my-recipes' user_id=request.user.id %}">List of my recipes</a></p>
+
+{% endblock %}
 
 </body>
 </html>
