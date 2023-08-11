@@ -3,8 +3,6 @@ from django.contrib.auth.hashers import make_password
 from django.db import models
 
 
-# Create your models here.
-
 class AlmanachContributorManager(auth_models.BaseUserManager):
     # overwrites auth_models.UserManager
     use_in_migrations = True
@@ -39,9 +37,6 @@ class AlmanachContributorManager(auth_models.BaseUserManager):
 
 
 class AlmanachContributor(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
-    # first_name = models.CharField(max_length=30, )
-    # second_name = models.CharField(max_length=30, )
-    # unique_username = models.CharField(max_length=20, )
 
     # overwriting auth_models.AbstractUser
     USERNAME_FIELD = 'email'
@@ -54,3 +49,4 @@ class AlmanachContributor(auth_models.AbstractBaseUser, auth_models.PermissionsM
     is_staff = models.BooleanField(
         default=False,
     )
+

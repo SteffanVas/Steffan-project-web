@@ -2,16 +2,16 @@ from django.db import models
 from django.template.defaultfilters import slugify
 
 from cooking_almanach.accounts_auth.models import AlmanachContributor
+from cooking_almanach.recipes.validators import time_too_long
 from cooking_almanach.web.models import DataContrib
 
 # from cooking_almanach.web.models import DataContrib
 
 
 class RecipeModel(models.Model):
-    recipe_title = models.CharField(max_length=30)
-    recipe_image = models.ImageField(blank=True)
-    ingredients = models.CharField(max_length=250)
-    cooking_time = models.IntegerField()
+    recipe_title = models.CharField(max_length=100)
+    ingredients = models.CharField(max_length=1000)
+    cooking_time = models.IntegerField(validators=(time_too_long,))
     servings = models.IntegerField()
     description = models.TextField()
 
@@ -21,7 +21,8 @@ class RecipeModel(models.Model):
                                         ('Vegetarian', 'Vegetarian'),
                                         ('Vegan', 'Vegan'),
                                         ('Gluten Free', 'Gluten Free'),
-                                        ('Meat', 'Meat')
+                                        ('Meat', 'Meat'),
+                                        ('Other', 'Other'),
                                     ),
 
                                     )
@@ -33,6 +34,9 @@ class RecipeModel(models.Model):
         if not self.slug:
             self.slug = slugify(f'{self.recipe_title}-{self.pk}')
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.recipe_title}"
 
 
 class Comment(models.Model):

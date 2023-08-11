@@ -5,11 +5,11 @@ from django.contrib.auth import views as auth_views
 from django.contrib.auth import mixins as auth_mixins
 from django.core.exceptions import PermissionDenied
 
-from django.shortcuts import render, get_object_or_404
+# from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic as views
 
-from cooking_almanach.accounts_auth.models import AlmanachContributor
+# from cooking_almanach.accounts_auth.models import AlmanachContributor
 from cooking_almanach.web.models import DataContrib
 
 # from django.views.generic import CreateView
@@ -148,3 +148,12 @@ class UserDeleteView(auth_mixins.LoginRequiredMixin, views.DeleteView):
     #         return True
     #     else:
     #         raise PermissionDenied('Authorization is denied')
+
+
+# class ManagePermissions:
+#     user = AlmanachContributor.objects.filter(is_staff='admin')
+#     user.has_perm('main_app.add_employee')  # True
+#     user.has_perm('main_app.change_employee')  # True
+#     user.has_perm('main_app.delete_employee')  # True
+#     user.has_perm('main_app.view_employee')
+
