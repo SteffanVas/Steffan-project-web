@@ -31,9 +31,9 @@ class RecipeModel(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            super().save(*args, **kwargs) 
-            self.slug = slugify(f'{self.recipe_title}-{self.pk}')  
-            super().save(*args, **kwargs)  
+            super().save(*args, **kwargs)  # Save to get a primary key assigned
+            self.slug = slugify(f'{self.recipe_title}-{self.pk}')  # Use the pk now
+            super().save(*args, **kwargs)  # Save again with the updated slug
         else:
             super().save(*args, **kwargs)
 
