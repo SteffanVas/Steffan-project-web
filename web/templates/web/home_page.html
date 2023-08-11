@@ -42,9 +42,9 @@
     <p></p>
 <div class="text-center"><a href="{% url 'recipes' %}">If registered, you can add your recipe here </a></div>
 <p></p>
-<div class="text-center"><a href="{% url 'list-of-recipes' %}">You can find a list with our recipes here</a></div>
+<div class="text-center"><a href="{% url 'list-of-recipes' %}">All Our Recipes</a></div>
 <p></p>
     {% if request.user.id %}
-<div class="text-center"><a href="{% url 'list-of-my-recipes' request.user.id %}">You can find a list with your personal recipes here</a></div>
+<div class="text-center"><a href="{% url 'list-of-my-recipes' request.user.id %}">Your Recipes </a></div>
 {% endif %}
 {% endblock %}

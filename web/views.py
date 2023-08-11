@@ -18,7 +18,7 @@ class CreateTip(mixins_views.LoginRequiredMixin, mixins_views.UserPassesTestMixi
         return self.request.user.is_staff
 
 
-class ViewTip (views.ListView):
+class ViewTip(views.ListView):
     form_class = TipForm
     template_name = 'web/home_page.html'
     context_object_name = "tips"
@@ -40,3 +40,7 @@ class SearchView(views.FormView):
         search_query = form.cleaned_data.get('search_query', '')
         search_results = RecipeModel.objects.filter(recipe_title__icontains=search_query)
         return render(self.request, self.template_name, {'form': form, 'search_results': search_results})
+
+
+def error_404(request, exception):
+    return render(request, 'base/404_error.html', status=404)

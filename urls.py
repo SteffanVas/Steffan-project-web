@@ -17,9 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+handler404 = 'cooking_almanach.web.views.error_404'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('cooking_almanach.accounts_auth.urls')),
     path('recipe/', include('cooking_almanach.recipes.urls')),
     path('', include('cooking_almanach.web.urls')),
 ]
+

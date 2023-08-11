@@ -26,7 +26,11 @@ class DataContrib(models.Model):
                                        primary_key=True)
 
 
+
 class TipModel(models.Model):
     title = models.CharField()
     tip = models.TextField()
+
+    def __str__(self):
+        return f"{self.title}"
 
