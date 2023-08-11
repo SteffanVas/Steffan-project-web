@@ -10,8 +10,7 @@ from django.core.paginator import Paginator
 from cooking_almanach.accounts_auth.models import AlmanachContributor
 from cooking_almanach.recipes.forms import RecipeForm, CommentForm
 # , CommentForm
-from cooking_almanach.recipes.models import Comment, RecipeModel \
-    # , RecipeModel
+from cooking_almanach.recipes.models import Comment, RecipeModel
 from cooking_almanach.web.models import DataContrib
 
 
@@ -80,7 +79,7 @@ def delete_recipe(request, user_id, recipe_title):
 
         if request.method == "GET":
             form = RecipeForm(instance=recipe, )
-            context = {'form': form, 'recipe_title':  recipe_title}
+            context = {'form': form, 'recipe_title': recipe_title}
             return render(request, 'recipes/delete-recipe.html', context)
 
         elif request.method == "POST":
@@ -90,6 +89,7 @@ def delete_recipe(request, user_id, recipe_title):
 
 def recipe_details(request, user_id, recipe_title):
     recipe = RecipeModel.objects.get(slug=recipe_title)
+
     context = {
         'recipe': recipe
     }
@@ -98,7 +98,7 @@ def recipe_details(request, user_id, recipe_title):
 
 
 def all_recipes(request):
-    all_the_recipes = RecipeModel.objects.all()
+    all_the_recipes = RecipeModel.objects.all().order_by('recipe_title')
     # paginator = Paginator(all_the_recipes, 5)
     # page_number = request.GET.get('page')
     # page_obj = paginator.get_page(page_number)
@@ -146,7 +146,6 @@ class CreatingCommentView(auth_mixins.LoginRequiredMixin, views.CreateView):
         form.instance.poster_two = data_contrib
 
         return super().form_valid(form)
-
 
 
 class CommentView(views.ListView):
