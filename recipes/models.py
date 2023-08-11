@@ -30,10 +30,12 @@ class RecipeModel(models.Model):
     user_unique_name = models.ForeignKey(to=DataContrib, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
         if not self.slug:
-            self.slug = slugify(f'{self.recipe_title}-{self.pk}')
-        super().save(*args, **kwargs)
+            super().save(*args, **kwargs)  # Save to get a primary key assigned
+            self.slug = slugify(f'{self.recipe_title}-{self.pk}')  # Use the pk now
+            super().save(*args, **kwargs)  # Save again with the updated slug
+        else:
+            super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.recipe_title}"
