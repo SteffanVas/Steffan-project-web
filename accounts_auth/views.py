@@ -5,14 +5,11 @@ from django.contrib.auth import views as auth_views
 from django.contrib.auth import mixins as auth_mixins
 from django.core.exceptions import PermissionDenied
 
-# from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic as views
 
-# from cooking_almanach.accounts_auth.models import AlmanachContributor
 from cooking_almanach.web.models import DataContrib
 
-# from django.views.generic import CreateView
 
 UserModel = get_user_model()
 
@@ -49,13 +46,7 @@ class RegisterUserForm(auth_forms.UserCreationForm):
 class RegisterUserView(views.CreateView):
     template_name = 'accounts/registration-page.html'
     form_class = RegisterUserForm
-    success_url = reverse_lazy('home-page')
-
-    # def form_valid(self, form):
-    #     result = super().form_valid(form)
-    #
-    #     login(self.request, self.object)
-    #     return result
+    success_url = reverse_lazy('login')
 
 
 class LoginContribView(auth_views.LoginView):
@@ -77,16 +68,6 @@ class ViewUser(auth_mixins.LoginRequiredMixin, RegisterUserForm, views.ListView)
         context['verification'] = UserModel.objects.get(pk=self.request.user.id)
         context['other_data'] = DataContrib.objects.get(pk=self.request.user.id)
         return context
-
-    # def get_object(self, queryset=None):
-    #     return get_object_or_404(UserModel, user=self.request.user)
-    #
-    # def test_func(self):
-    #     user_profile = self.get_object()
-    #     if self.request.user == user_profile.user:
-    #         return True
-    #     else:
-    #         raise PermissionDenied('Authorization is denied')
 
 
 class EditUser(auth_mixins.LoginRequiredMixin, auth_mixins.UserPassesTestMixin, views.UpdateView):
@@ -136,24 +117,3 @@ class UserDeleteView(auth_mixins.LoginRequiredMixin, views.DeleteView):
     model = UserModel
     template_name = 'accounts/contrib_confirm_delete.html'
     success_url = reverse_lazy('home-page')
-
-    # needs polishing
-    # def get_object(self, queryset=None):
-    #     return get_object_or_404(UserModel, pk=self.request.user.id)
-    #
-    # def test_func(self):
-    #     user_profile_id = self.get_object()
-    #
-    #     if self.request.user.id == user_profile_id:
-    #         return True
-    #     else:
-    #         raise PermissionDenied('Authorization is denied')
-
-
-# class ManagePermissions:
-#     user = AlmanachContributor.objects.filter(is_staff='admin')
-#     user.has_perm('main_app.add_employee')  # True
-#     user.has_perm('main_app.change_employee')  # True
-#     user.has_perm('main_app.delete_employee')  # True
-#     user.has_perm('main_app.view_employee')
-
